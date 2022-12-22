@@ -11,7 +11,7 @@ Okay so this was just to solve a specific need I had where I wanted to run Winbo
 Also, it's not published on Flathub either and it does not support connecting through MAC address, only IP address, so if you know how to do any of these things you're very welcome to do so and I'll be very happy to merge your pull request :)
 
 # Building
-1. Make sure to install flatpak-builder and org.winehq.Wine flatpak image:
+Make sure to install flatpak-builder and org.winehq.Wine flatpak image beforehand, then run this:
 ```
 flatpak install org.winehq.Wine
 git clone --depth=1 https://github.com/darkguy2008/com.darkguy2008.winbox.git
