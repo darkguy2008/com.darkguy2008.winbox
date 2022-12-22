@@ -1,0 +1,46 @@
+# Ref: https://gitlab.com/parcimonic/legendary-flatpak/-/blob/development/com.gitlab.parcimonic.legendary.yml
+# Ref: https://raw.githubusercontent.com/flathub/org.winehq.Wine/fca5b6d6c5e95db3d2515c34c80c9333e2e3537d/org.winehq.Wine.yml
+# Ref: https://ramsdenj.com/2018/03/26/packaging-pathofexile-with-flatpak.html
+
+app-id: com.darkguy2008.winbox
+base: org.winehq.Wine
+base-version: stable-22.08
+runtime: org.freedesktop.Platform
+runtime-version: '22.08'
+sdk: org.freedesktop.Sdk
+finish-args:
+  - --share=ipc
+  - --socket=x11
+  - --socket=wayland
+  - --device=all
+  - --socket=pulseaudio
+  - --share=network
+  - --allow=multiarch
+  - --allow=devel
+  - --system-talk-name=org.freedesktop.UDisks2
+  - --system-talk-name=org.freedesktop.NetworkManager
+  - --filesystem=xdg-desktop
+  - --filesystem=xdg-documents
+  - --filesystem=xdg-pictures
+  - --filesystem=xdg-music
+  - --filesystem=xdg-videos
+  - --filesystem=xdg-download
+command: winbox.sh
+
+add-extensions:
+  org.freedesktop.Platform.Compat.i386:
+    directory: lib/i386-linux-gnu
+    version: '22.08'
+
+  org.winehq.Wine.mono:
+    directory: share/wine/mono
+    bundle: true
+
+modules:
+  - name: winbox
+    buildsystem: simple
+    build-commands:
+      - install -D winbox.sh /app/bin/winbox.sh
+    sources:
+      - type: file
+        path: winbox.sh
