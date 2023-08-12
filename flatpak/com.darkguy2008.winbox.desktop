@@ -6,5 +6,5 @@ Comment=Winbox is a small utility that allows the administration of MikroTik Rou
 Icon=com.darkguy2008.winbox
 TryExec=winbox.sh
 Exec=winbox.sh %U
-Terminal=true
+Terminal=false
 StartupWMClass=Winbox

@@ -28,19 +28,21 @@ finish-args:
 command: winbox.sh
 
 add-extensions:
-  org.freedesktop.Platform.Compat.i386:
+  org.freedesktop.Platform.Compat:
     directory: lib/i386-linux-gnu
     version: '22.08'
-
-  org.winehq.Wine.mono:
-    directory: share/wine/mono
-    bundle: true
 
 modules:
   - name: winbox
     buildsystem: simple
     build-commands:
       - install -D winbox.sh /app/bin/winbox.sh
+      - install -Dm644 com.darkguy2008.winbox.desktop /app/share/applications/com.darkguy2008.winbox.desktop
+      - install -Dm644 com.darkguy2008.winbox.svg /app/share/icons/hicolor/scalable/apps/com.darkguy2008.winbox.svg
     sources:
       - type: file
         path: winbox.sh
+      - type: file
+        path: com.darkguy2008.winbox.desktop
+      - type: file
+        path: com.darkguy2008.winbox.svg
