@@ -15,7 +15,6 @@ finish-args:
   - --device=all
   - --socket=pulseaudio
   - --share=network
-  - --allow=multiarch
   - --allow=devel
   - --system-talk-name=org.freedesktop.UDisks2
   - --system-talk-name=org.freedesktop.NetworkManager
@@ -25,12 +24,9 @@ finish-args:
   - --filesystem=xdg-music
   - --filesystem=xdg-videos
   - --filesystem=xdg-download
+  # Skip Gecko and Mono popups when creating Wine prefix
+  - --env=WINEDLLOVERRIDES=mscoree,mshtml=
 command: winbox.sh
-
-add-extensions:
-  org.freedesktop.Platform.Compat:
-    directory: lib/i386-linux-gnu
-    version: '22.08'
 
 modules:
   - name: winbox
@@ -46,3 +42,5 @@ modules:
         path: com.darkguy2008.winbox.desktop
       - type: file
         path: com.darkguy2008.winbox.svg
+cleanup-commands:
+        - rm -rf /app/lib32
