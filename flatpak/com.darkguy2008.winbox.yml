@@ -4,33 +4,22 @@
 
 app-id: com.darkguy2008.winbox
 base: org.winehq.Wine
-base-version: stable-22.08
+base-version: stable-23.08
 runtime: org.freedesktop.Platform
-runtime-version: '22.08'
+runtime-version: "23.08"
 sdk: org.freedesktop.Sdk
 finish-args:
   - --share=ipc
-  - --socket=x11
-  - --socket=wayland
-  - --device=all
-  - --socket=pulseaudio
+  - --socket=fallback-x11
   - --share=network
   - --allow=multiarch
-  - --allow=devel
-  - --system-talk-name=org.freedesktop.UDisks2
-  - --system-talk-name=org.freedesktop.NetworkManager
-  - --filesystem=xdg-desktop
-  - --filesystem=xdg-documents
-  - --filesystem=xdg-pictures
-  - --filesystem=xdg-music
-  - --filesystem=xdg-videos
-  - --filesystem=xdg-download
+  - --filesystem=xdg-download:rw
 command: winbox.sh
 
 add-extensions:
   org.freedesktop.Platform.Compat.i386:
     directory: lib/i386-linux-gnu
-    version: '22.08'
+    version: "23.08"
 
   org.winehq.Wine.mono:
     directory: share/wine/mono
@@ -40,7 +29,17 @@ modules:
   - name: winbox
     buildsystem: simple
     build-commands:
-      - install -D winbox.sh /app/bin/winbox.sh
+      - install -vDm644 com.darkguy2008.winbox.desktop /app/share/applications/${FLATPAK_ID}.desktop
+      - install -vDm644 com.darkguy2008.winbox.svg /app/share/icons/hicolor/scalable/apps/${FLATPAK_ID}.svg
+      - install -vDm755 winbox64.exe /app/var/data/wine/drive_c/winbox64.exe
+      - install -vDm755 winbox.sh /app/bin/winbox.sh
     sources:
       - type: file
+        path: com.darkguy2008.winbox.svg
+      - type: file
+        path: com.darkguy2008.winbox.desktop
+      - type: file
         path: winbox.sh
+      - type: file
+        url: https://download.mikrotik.com/winbox/3.40/winbox64.exe
+        sha256: 91f7b0456619dbfc19940a85566c949ce3718321f32709886df5125c71f0b6b7
